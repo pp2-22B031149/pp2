@@ -7,7 +7,7 @@ FPS=pygame.time.Clock()
 sc=pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("music player")
 
-Playlist=['first.mp3', 'second.mp3', 'third.mp3']
+Playlist=['TSIS 7\\first.mp3', 'TSIS 7\\second.mp3', 'TSIS 7\\third.mp3']
 curm=0
 curs=pygame.mixer.music.load(Playlist[curm])
 pygame.mixer.music.play()
