@@ -22,7 +22,7 @@ font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
  
-background = pygame.image.load("TSIS9/Road.png")
+background = pygame.image.load("TSIS 9/Road.png")
  
 DISPLAYSURF = pygame.display.set_mode((400,600))
 DISPLAYSURF.fill(WHITE)
@@ -31,7 +31,7 @@ pygame.display.set_caption("Game")
 class Enemy(pygame.sprite.Sprite):
       def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("TSIS9/Enemy.png")
+        self.image = pygame.image.load("TSIS 9/Enemy.png")
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0) 
          
@@ -45,21 +45,25 @@ class Enemy(pygame.sprite.Sprite):
 class Coin(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("TSIS9/Coin2.png")
+        self.image = pygame.image.load("TSIS 9/Coin2.png")
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0) 
     
     def move(self):
-        global SCORE
+        # global SCORE
         self.rect.move_ip(0,SPEED)
         if (self.rect.top > 600):
             self.rect.top = 0
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+    
+    def restart(self):
+        self.rect.top = 0
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
 
 class SilverCoin(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("TSIS9/SilverCoin.png")
+        self.image = pygame.image.load("TSIS 9/SilverCoin.png")
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH-40), 0) 
          
@@ -69,12 +73,16 @@ class SilverCoin(pygame.sprite.Sprite):
         if (self.rect.top > 600):
             self.rect.top = 0
             self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+        
+    def restart(self):
+        self.rect.top = 0
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
  
  
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__() 
-        self.image = pygame.image.load("TSIS9/Player.png")
+        self.image = pygame.image.load("TSIS 9/Player.png")
         self.rect = self.image.get_rect()
         self.rect.center = (160, 520)
         
@@ -110,17 +118,19 @@ INC_SPEED = pygame.USEREVENT + 1
 SPAWN_COIN = pygame.USEREVENT + 2
 SPAWN_COIN2 = pygame.USEREVENT + 3
 pygame.time.set_timer(INC_SPEED, 1000)
-pygame.time.set_timer(SPAWN_COIN, 2000)
+pygame.time.set_timer(SPAWN_COIN, 2500)
 pygame.time.set_timer(SPAWN_COIN2, 2000)
 
 while True:
     for event in pygame.event.get():
         if event.type == INC_SPEED:
             SPEED += 0.2
-        if event.type == SPAWN_COIN:
+        if event.type == SPAWN_COIN and not C1.alive():
+            C1.restart()
             coin.add(C1)
             all_sprites.add(C1)
-        if event.type == SPAWN_COIN2:
+        if event.type == SPAWN_COIN2 and not C1.alive():
+            C2.restart()
             silvcoin.add(C2)
             all_sprites.add(C2)
         if event.type == pygame.QUIT:
@@ -134,17 +144,18 @@ while True:
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
-
     if pygame.sprite.spritecollideany(P1, coin):
-        entity.kill()
+        # C1.kill()
+        C1.restart()
         SCORE += 2
             
     if pygame.sprite.spritecollideany(P1, silvcoin):
-        entity.kill()
+        # C2.kill()
+        C2.restart()
         SCORE += 1
         
     if pygame.sprite.spritecollideany(P1, enemies):
-        pygame.mixer.Sound('TSIS9/crash.wav').play()
+        pygame.mixer.Sound('TSIS 9/crash.wav').play()
         time.sleep(0.5)
                     
         DISPLAYSURF.fill(RED)

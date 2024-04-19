@@ -1,0 +1,1 @@
+rect.collidepoint(pygame.mouse.get_pos()

@@ -12,7 +12,7 @@ BLOCK_SIZE = 40
 SCREEN = pygame.display.set_mode((SW, SH + 40))
 
 CLOCK = pygame.time.Clock()
-FONT = pygame.font.Font("TSIS9/font.ttf", BLOCK_SIZE)
+FONT = pygame.font.Font("TSIS 9/font.ttf", BLOCK_SIZE)
 
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
@@ -40,7 +40,7 @@ class Snake():
 
         pygame.draw.rect(
             SCREEN,
-            GREEN,
+            (0, 0, 255),
             pygame.Rect(
                 head.x * BLOCK_SIZE,
                 head.y * BLOCK_SIZE,
@@ -112,8 +112,8 @@ class Apple:
         self.location.x = random.randint(0, SW // BLOCK_SIZE - 1)
         self.location.y = random.randint(0, SH // BLOCK_SIZE - 1)
         self.weight = random.randint(1, 3)
-        self.color = 200 - (self.weight - 1) * 100
-        self.color = 200 - (self.weight - 1) * 100
+        # self.color = 200 - (self.weight - 1) * 100
+        # self.color = 200 - (self.weight - 1) * 100
         for idx in range(len(snake_body) - 1, 0, -1):
             if self.location.x == snake_body[idx].x and self.location.y == snake_body[idx].y:
                 self.location.x = random.randint(0, SW // BLOCK_SIZE - 1)
@@ -146,7 +146,7 @@ def main():
     score = 0
     LVL = 0
     spawn = time.perf_counter()
-    dispawn = 0
+    # dispawn = 0
 
     while True:
 
@@ -177,18 +177,18 @@ def main():
             spawn = time.perf_counter()
             score += 1
             LVL = score // 5
-            dispawn += apple.weight
+            # dispawn += apple.weight
             apple.generate_new(snake.body)
             snake.body.append(SnakeST(snake.body[-1].x, snake.body[-1].y))
-            dispawn -= 1
-        elif dispawn > 0:
-            snake.body.append(SnakeST(snake.body[-1].x, snake.body[-1].y))
-            dispawn -= 1
+            # dispawn -= 1
+        # elif dispawn > 0:
+        #     snake.body.append(SnakeST(snake.body[-1].x, snake.body[-1].y))
+        #     dispawn -= 1
 
-            apple.generate_new(snake.body)
-            snake.body.append(
-                SnakeST(snake.body[-1].x, snake.body[-1].y)
-            )
+        #     apple.generate_new(snake.body)
+        #     snake.body.append(
+        #         SnakeST(snake.body[-1].x, snake.body[-1].y)
+        #     )
 
         if time.perf_counter() - spawn > 5:
             spawn = time.perf_counter()

@@ -11,14 +11,6 @@ WHITE = pygame.Color(255, 255, 255)
 GRAY = pygame.Color(127, 127, 127)
 
 
-class GameObject:
-    def draw(self):
-        raise NotImplementedError
-
-    def handle(self):
-        raise NotImplementedError
-
-
 class Button(pygame.sprite.Sprite):
     def __init__(self, points, width=0, color=GRAY):
         super().__init__()
@@ -31,7 +23,7 @@ class Button(pygame.sprite.Sprite):
         pygame.draw.polygon(SCREEN, self.color, self.points, self.width)
 
 
-class Pen(GameObject):
+class Pen():
     def __init__(self, start_pos, thickness=5, color=WHITE):
         self.thickness = thickness
         self.color = color
@@ -51,7 +43,7 @@ class Pen(GameObject):
         self.points.append(mouse_pos)
 
 
-class Rectangle(GameObject):
+class Rectangle():
     def __init__(self, start_pos, thickness=5, color=WHITE):
         self.thickness = thickness
         self.color = color
@@ -73,7 +65,7 @@ class Rectangle(GameObject):
         self.end_pos = mouse_pos
 
 
-class RightTriangle(GameObject):
+class RightTriangle():
     def __init__(self, start_pos, thickness=5, color=WHITE):
         self.thickness = thickness
         self.color = color
@@ -100,7 +92,7 @@ class RightTriangle(GameObject):
         self.end_pos = mouse_pos
 
 
-class EquilateralTriangle(GameObject):
+class EquilateralTriangle():
     def __init__(self, start_pos, thickness=5, color=WHITE):
         self.thickness = thickness
         self.color = color
@@ -125,7 +117,7 @@ class EquilateralTriangle(GameObject):
         self.end_pos = mouse_pos
 
 
-class Rhombus(GameObject):
+class Rhombus():
     def __init__(self, start_pos, thickness=5, color=WHITE):
         self.thickness = thickness
         self.color = color
@@ -209,6 +201,7 @@ def main():
 
         clock.tick(30)
         pygame.display.flip()
+    pygame.quit()
 
 
 if __name__ == '__main__':

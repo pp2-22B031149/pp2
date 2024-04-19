@@ -19,13 +19,13 @@ while True:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_UP]:
-        y -= speed
+        y = max(25, y-speed)
     elif keys[pygame.K_DOWN]:
-        y += speed
+        y = min(H-25, y+speed)
     elif keys[pygame.K_LEFT]:
-        x -= speed
+        x = max(25, x-speed)
     elif keys[pygame.K_RIGHT]:
-        x += speed
+        x = min(W-25, x+speed)
 
 
     sc.fill((0, 0, 0))
